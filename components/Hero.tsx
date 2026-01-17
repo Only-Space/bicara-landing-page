@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Hand, Volume2, Mic, Battery, Wifi, Signal } from "lucide-react";
+import Image from "next/image";
+import { Mic, Battery, Wifi, Signal } from "lucide-react";
 
 export default function Hero() {
     return (
@@ -81,50 +82,56 @@ export default function Hero() {
                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600" />
                         </div>
 
-                        {/* Chat Interface */}
-                        <div className="p-4 space-y-4 flex flex-col h-[520px]">
-                            {/* Step 1: User Input (Simulated) */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 1.5, duration: 0.5 }}
-                                className="self-start max-w-[85%]"
-                            >
-                                <div className="bg-slate-800 rounded-2xl rounded-tl-sm p-3 border border-white/5 flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-cyan-400">
-                                        <Hand size={16} />
-                                    </div>
-                                    <span className="text-slate-300 text-sm">Mendeteksi Gerakan...</span>
-                                </div>
-                            </motion.div>
+                        {/* Camera Interface */}
+                        <div className="relative h-[520px] w-full bg-black overflow-hidden group">
+                           {/* Live Camera Feed Simulation */}
+                           <div className="absolute inset-0 z-0">
+                                <Image
+                                    src="/hand_gesture.png"
+                                    alt="Live Camera Feed"
+                                    fill
+                                    className="object-cover opacity-80"
+                                    priority
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent" />
+                           </div>
 
-                            {/* Step 2: System Response */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 3.5, duration: 0.5 }}
-                                className="self-end max-w-[85%]"
-                            >
-                                <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-2xl rounded-tr-sm p-4 shadow-lg shadow-cyan-500/10">
-                                    <p className="text-white font-medium">Halo, selamat pagi! 👋</p>
-                                </div>
-                            </motion.div>
-
-                            {/* Step 3: Audio Output Animation */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
+                           {/* AI Detection Overlay */}
+                           <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 4.5, duration: 0.3 }}
-                                className="self-end flex items-center gap-2"
-                            >
-                                <div className="flex gap-1 h-4 items-end">
-                                    <motion.div animate={{ height: [8, 16, 8] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-cyan-400 rounded-full" />
-                                    <motion.div animate={{ height: [12, 6, 12] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-1 bg-cyan-400 rounded-full" />
-                                    <motion.div animate={{ height: [6, 14, 6] }} transition={{ repeat: Infinity, duration: 0.9 }} className="w-1 bg-cyan-400 rounded-full" />
-                                    <motion.div animate={{ height: [10, 5, 10] }} transition={{ repeat: Infinity, duration: 0.7 }} className="w-1 bg-cyan-400 rounded-full" />
+                                transition={{ delay: 0.5, duration: 0.5 }}
+                                className="absolute top-1/4 left-1/4 right-[15%] bottom-[35%] border-2 border-green-400 rounded-lg shadow-[0_0_20px_rgba(74,222,128,0.3)] z-10"
+                           >
+                                {/* Detection Label */}
+                                <div className="absolute -top-8 left-0 flex items-center gap-2 bg-green-500/10 backdrop-blur-md border border-green-500/30 px-3 py-1 rounded-full">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                                    <span className="text-[10px] font-mono text-green-300 tracking-wider">
+                                        [AI DETECTING: "HELLO"]
+                                    </span>
                                 </div>
-                                <span className="text-xs text-cyan-400 font-medium">Speaking...</span>
-                            </motion.div>
+
+                                {/* Bounding Box Corners */}
+                                <div className="absolute -top-1 -left-1 w-4 h-4 border-t-4 border-l-4 border-green-400 rounded-tl-sm" />
+                                <div className="absolute -top-1 -right-1 w-4 h-4 border-t-4 border-r-4 border-green-400 rounded-tr-sm" />
+                                <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-4 border-l-4 border-green-400 rounded-bl-sm" />
+                                <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-4 border-r-4 border-green-400 rounded-br-sm" />
+                           </motion.div>
+
+                           {/* Real-time Translation Output */}
+                           <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.5 }}
+                                className="absolute bottom-4 left-4 right-4 z-20"
+                           >
+                                <div className="bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-xl">
+                                    <p className="text-xs text-slate-400 mb-1 font-medium tracking-wide uppercase">Diterjemahkan:</p>
+                                    <p className="text-lg font-semibold text-white">
+                                        Halo, selamat pagi! 👋
+                                    </p>
+                                </div>
+                           </motion.div>
                         </div>
 
                         {/* Floating Action Button */}
